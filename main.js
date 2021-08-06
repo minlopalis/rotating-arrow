@@ -14,7 +14,6 @@ const angleSlider = document.getElementById('angleSlider');
 const angleLabel = document.getElementById('angleLabel')
 
 angleSlider.addEventListener('input', ()=>{
-    console.log(angleSlider.value);
     angleLabel.innerText = angleSlider.value + 'deg';
     line.rotate = angleSlider.value;
 });
@@ -52,17 +51,22 @@ const drawline = ()=>{
     context.lineTo(x2, y2);
 
     //Draw from A to B
-    let bX = start.x + Math.cos(radians) * line.width/2 + Math.sin(radians) * line.height/2;
-    let bY = start.y + Math.sin(radians) * line.width/2 - Math.cos(radians) * line.height/2;
- 
+    let bX = start.x + Math.cos(radians) * -line.height / 2 - Math.sin(radians) * -line.width / 2
+    let bY = start.y + Math.sin(radians) * -line.height / 2 + Math.cos(radians) * -line.width / 2
     context.lineTo(bX , bY);
 
-
     // // Draw from B to Origin
+    context.lineTo(start.x, start.y)
+
 
     // // Draw from Origin to C
- 
+    let cX = start.x + -Math.cos(radians) * line.height / 2 - Math.sin(radians) * line.width / 2
+    let cY = start.y + -Math.sin(radians) * line.height / 2 + Math.cos(radians) * line.width / 2
+    context.lineTo(cX, cY)
+
+
     //Close shape (C to A)
+    context.lineTo(x2, y2)
     context.stroke();
 
     requestAnimationFrame(drawline)
